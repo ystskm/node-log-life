@@ -14,7 +14,7 @@
     "nodeunit-ci": "*",
     "jsdom": "*"
   },
-  "keywords": ["util","events","pipe","chain","function"],
+  "keywords": ["util","log"],
   "main": "./index.js",
   "repository": {
     "url": "http://github.com/ystskm/node-log-life",
