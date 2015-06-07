@@ -1,0 +1,31 @@
+{
+  "name": "noleak-emitter",
+  "version": "0.1.1",
+  "author": {
+    "name": "Yoshitaka Sakamoto",
+    "url": "http://github.com/ystskm",
+    "email": "sakamoto@liberty-technology.biz"
+  },
+  "contributors": [],
+  "description": "A event emitter careful for memory leak.",
+  "dependencies": {},
+  "devDependencies": {
+    "nodeunit": "*",
+    "nodeunit-ci": "*",
+    "jsdom": "*",
+    "browser-emitter":">=0.4.0"
+  },
+  "keywords": ["util","events","pipe","chain","function"],
+  "main": "NoleakEmitter.js",
+  "repository": {
+    "url": "http://github.com/ystskm/noleak-emitter-js",
+    "type": "git"
+  },
+  "licenses": [{
+      "type": "MIT",
+      "url": "https://github.com/ystskm/node-localelist/blob/master/LICENSE"
+  }],
+  "scripts": {
+    "test": "node test/_runner.js"
+  }
+}
