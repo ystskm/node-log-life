@@ -1,29 +1,28 @@
 {
-  "name": "noleak-emitter",
-  "version": "0.1.1",
+  "name": "log-life",
+  "version": "0.0.1",
   "author": {
     "name": "Yoshitaka Sakamoto",
     "url": "http://github.com/ystskm",
     "email": "sakamoto@liberty-technology.biz"
   },
   "contributors": [],
-  "description": "A event emitter careful for memory leak.",
+  "description": "Simple Log Management System",
   "dependencies": {},
   "devDependencies": {
     "nodeunit": "*",
     "nodeunit-ci": "*",
-    "jsdom": "*",
-    "browser-emitter":">=0.4.0"
+    "jsdom": "*"
   },
   "keywords": ["util","events","pipe","chain","function"],
-  "main": "NoleakEmitter.js",
+  "main": "./index.js",
   "repository": {
-    "url": "http://github.com/ystskm/noleak-emitter-js",
+    "url": "http://github.com/ystskm/node-log-life",
     "type": "git"
   },
   "licenses": [{
       "type": "MIT",
-      "url": "https://github.com/ystskm/node-localelist/blob/master/LICENSE"
+      "url": "https://github.com/ystskm/node-log-life/blob/master/LICENSE"
   }],
   "scripts": {
     "test": "node test/_runner.js"
