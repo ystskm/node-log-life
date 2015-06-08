@@ -38,6 +38,19 @@ Install with [npm](http://npmjs.org/):
 ## API for __LogLife__
 
 ```js
+    // setting a maintenance targets with options
+     LogLife('/var/log/mylog1', {
+     
+       // maintenance per day
+       span: 24 * 60 * 60 * 1000, 
+       
+       // max 3 archives
+       stocks: 3
+       
+     })
+```
+
+```js
     // start log maintenance
     // *automatically* starts when LogLife() calls.
     LogLife.start(<Number>checking_interval_millisec || 1000)
