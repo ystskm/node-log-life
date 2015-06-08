@@ -13,14 +13,70 @@ Install with [npm](http://npmjs.org/):
 
     npm install log-life
     
-## API - Set functions by args
+## USAGE - Set functions by args
 
 ```js
-    // On node.js, "GLOBAL.Emitter" or "require('events').EventEmitter"
+    // To begin log-life, simply call with the target log file.
+    var LogLife = require('log-life');
+    LogLife('/var/log/mylog');
 ```
 
-## if you want to inherit Emitter to another *class*, use prototype chain.
+```js
+    // Available for specify multiple files
+    LogLife('/var/log/mylog1', '/var/log/mylog2');
+```
+
+## OPTIONS
 
 ```js
-    // for Factory
+    * span  
+      ... executing maintenance interval milli-seconds
+    * stock 
+      ... preserve num of log archive
+```
+
+## API for __LogLife__
+
+```js
+    // start log maintenance
+    // *automatically* starts when LogLife() calls.
+    LogLife.start(<Number>checking_interval_millisec || 1000)
+```
+
+```js
+    // stop log maintenance
+    LogLife.stop()
+```
+
+```js
+    // getting a life for a file
+    LogLife.get(<String>filepath)
+```
+
+```js
+    // stop log maintenance
+    LogLife.stop()
+```
+
+## API for __Life__ (a life for a file)
+
+```js
+    // logfile filepath 
+    life.filepath
+    // logfile mainteanace span
+    life.span
+    // logfile stock archives num
+    life.stock
+```
+
+```js
+    // logfile size 
+    var life = LogLife.get(filepath);
+    life.size().then(function(size) { ... })
+```
+
+```js
+    // logfile related archive list 
+    var life = LogLife.get(filepath);
+    life.list().then(function(list) { ... })
 ```
