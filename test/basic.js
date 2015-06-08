@@ -58,7 +58,7 @@ module.exports = nodeunit.testCase({
       var life = LogLife.get(logf);
       life.list().then(function(a) {
         t.ok(Array.isArray(a), 'Initial list is array.');
-        t.equals(a.length, 1, 'length === 1.');
+        t.equals(a.length, 0, 'length === 0.');
         rsl();
       }, rej);
 
@@ -75,8 +75,7 @@ module.exports = nodeunit.testCase({
       setTimeout(function() {
         life.list().then(function(a) {
 
-          console.log(a);
-          t.equals(a.length, Num + 1, 'max length === ' + (Num + 1));
+          t.equals(a.length, Num, 'max length === ' + Num);
           life.size().then(function(size) {
             t.equals(0, size);
             rsl();
