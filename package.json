@@ -1,6 +1,6 @@
 {
   "name": "log-life",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "Yoshitaka Sakamoto",
     "url": "http://github.com/ystskm",
@@ -8,11 +8,12 @@
   },
   "contributors": [],
   "description": "Simple Log Management System",
-  "dependencies": {},
+  "dependencies": {
+    "supertimer": ""
+  },
   "devDependencies": {
     "nodeunit": "*",
-    "nodeunit-ci": "*",
-    "jsdom": "*"
+    "nodeunit-ci": "*"
   },
   "keywords": ["util","log", "life-cycle"],
   "main": "./index.js",
