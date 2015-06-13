@@ -45,7 +45,7 @@ Install with [npm](http://npmjs.org/):
        span: 24 * 60 * 60 * 1000, 
        
        // max 3 archives
-       stocks: 3
+       stock: 3
        
      })
 ```
