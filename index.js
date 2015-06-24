@@ -8,9 +8,25 @@ function LogLife() {
 
   var args = Array.prototype.slice.call(arguments);
   var opts = typeof args.slice(-1)[0] == 'string' ? {}: args.pop();
-  args.forEach(function(fp) {
-    if(Lifes[fp])
+
+  var files = [], pusher = function(fp) {
+
+    if(typeof fp != 'string') {
+      throw new Error('Unexpected path type: ' + fp);
+    }
+
+    files.push(fp);
+  };
+
+  args.forEach(function(arg) {
+    Array.isArray(arg) ? arg.forEach(pusher): pusher(arg);
+  });
+  files.forEach(function(fp) {
+
+    if(Lifes[fp]) {
       throw new Error('Duplicated loglife call for: ' + fp);
+    }
+
     Lifes[fp] = new Life(fp, opts);
   });
 
@@ -31,6 +47,7 @@ start();
 function start(intv) {
   if(TickTimer)
     stop();
+  console.log('life.start: ', intv);
   TickTimer = supr.setInterval(_exec, intv || 1000);
 }
 function stop() {
@@ -50,6 +67,7 @@ function die(fp) {
 
 function _exec() {
 
+  console.log('life.exec: ');
   if(_exec.now) {
     return Promise.reject(new Error('On maintenance (' + _exec.now + ')'));
   }
@@ -59,6 +77,7 @@ function _exec() {
   Object.keys(Lifes).forEach(function(fp) {
     var life = get(fp);
     promise = promise.then(function() {
+      console.log('life.check: ', now);
       return life.check(now);
     });
   });
