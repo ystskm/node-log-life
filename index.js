@@ -45,9 +45,10 @@ for( var k in ops)
 start();
 
 function start(intv) {
-  if(TickTimer)
+  if(TickTimer) {
     stop();
-  console.log('life.start: ', intv);
+  }
+  // This is a check interval for LogLife.
   TickTimer = supr.setInterval(_exec, intv || 1000);
 }
 function stop() {
@@ -67,7 +68,6 @@ function die(fp) {
 
 function _exec() {
 
-  console.log('life.exec: ');
   if(_exec.now) {
     return Promise.reject(new Error('On maintenance (' + _exec.now + ')'));
   }
@@ -77,7 +77,6 @@ function _exec() {
   Object.keys(Lifes).forEach(function(fp) {
     var life = get(fp);
     promise = promise.then(function() {
-      console.log('life.check: ', now);
       return life.check(now);
     });
   });
