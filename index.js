@@ -12,7 +12,8 @@ function LogLife() {
   var files = [], pusher = function(fp) {
 
     if(typeof fp != 'string') {
-      throw new Error('Unexpected path type: ' + fp);
+      console.warn('Unexpected path type: ' + fp);
+      return;
     }
 
     files.push(fp);
@@ -24,7 +25,8 @@ function LogLife() {
   files.forEach(function(fp) {
 
     if(Lifes[fp]) {
-      throw new Error('Duplicated loglife call for: ' + fp);
+      console.warn('Duplicated loglife and renewal life: ' + fp);
+      die(fp);
     }
 
     Lifes[fp] = new Life(fp, opts);

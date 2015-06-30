@@ -30,7 +30,11 @@ Install with [npm](http://npmjs.org/):
 
 ```js
     * span  
-      ... executing maintenance interval milli-seconds
+      ... executing maintenance interval time.  
+      (millisecond. w[eek], h[ours] also available.)
+    * cap
+      ... executing maintenance file-size  
+      (bytes. k[bytes], M[bytes], G[bytes] also available.)
     * stock 
       ... preserve num of log archive
 ```
