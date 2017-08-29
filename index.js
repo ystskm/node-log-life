@@ -1,4 +1,5 @@
 /***/
+var NULL = null, TRUE = true, FALSE = false;
 module.exports = LogLife;
 
 var Life = require('./lib/Life');
@@ -29,7 +30,9 @@ function LogLife() {
       die(fp);
     }
 
+    // console.log('Set log-life file: ' + fp);
     Lifes[fp] = new Life(fp, opts);
+    
   });
 
 }
@@ -51,13 +54,13 @@ function start(intv) {
     stop();
   }
   // This is a check interval for LogLife.
-  TickTimer = supr.setInterval(_exec, intv || 1000);
+  TickTimer = supr.setInterval(_exec, intv || 10 * 1000);
 }
 function stop() {
   if(!TickTimer)
     return;
   supr.clearInterval(TickTimer);
-  TickTimer = null;
+  TickTimer = NULL;
 }
 
 function get(fp) {
@@ -71,21 +74,27 @@ function die(fp) {
 function _exec() {
 
   if(_exec.now) {
-    return Promise.reject(new Error('On maintenance (' + _exec.now + ')'));
+    return console.log('On maintenance (' + _exec.now + ')');
   }
 
   var now = _exec.now = new Date();
   var promise = Promise.resolve();
   Object.keys(Lifes).forEach(function(fp) {
-    var life = get(fp);
-    promise = promise.then(function() {
-      return life.check(now);
+    var rap = Date.now();
+    promise = promise.then(function(){
+      // console.log('Goto check for: ' + fp, now, Date.now() - rap);
+    }).then(function() {
+      
+      return get(fp).check(now)
+      
+    }).then(function(){
+      // console.log('Ok check for: ' + fp, now, Date.now() - rap);
     });
   });
 
   promise.then(function() {
     delete _exec.now;
-  })['catch'](function() {
+  })['catch'](function(e) {
     delete _exec.now;
   });
 
