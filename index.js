@@ -73,8 +73,15 @@ function die(fp) {
 
 function _exec() {
 
-  if(_exec.now) {
-    return console.log('On maintenance (' + _exec.now + ')');
+  var n = _exec.now;
+  if(n) {
+    if(Date.now() - n.getTime() > 600 * 1000) {
+      
+      outLog('LogLife is stopped for too-late execution. (' + n + ')');
+      return delete _exec.now, stop();
+      
+    }
+    return outLog('On maintenance (' + n + ')');
   }
 
   var now = _exec.now = new Date();
@@ -82,13 +89,13 @@ function _exec() {
   Object.keys(Lifes).forEach(function(fp) {
     var rap = Date.now();
     promise = promise.then(function(){
-      // console.log('Goto check for: ' + fp, now, Date.now() - rap);
+      // outLog('Goto check for: ' + fp, now, Date.now() - rap);
     }).then(function() {
       
       return get(fp).check(now)
       
     }).then(function(){
-      // console.log('Ok check for: ' + fp, now, Date.now() - rap);
+      // outLog('Ok check for: ' + fp, now, Date.now() - rap);
     });
   });
 
@@ -100,4 +107,17 @@ function _exec() {
 
   return promise;
 
+}
+
+// ----------- //
+function outLog() {
+  console.log.apply(console, _getLogArgs(arguments));
+}
+function outWarn() {
+  console.warn.apply(console, _getLogArgs(arguments));
+}
+function _getLogArgs(a) {
+  var args = Array.prototype.slice.call(a);
+  args.unshift(new Date().getGMTString() + ' - [LogLife]');
+  return args;
 }
