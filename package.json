@@ -1,13 +1,13 @@
 {
   "name": "log-life",
-  "version": "0.4.5",
+  "version": "1.0.0",
   "author": {
     "name": "Yoshitaka Sakamoto",
     "url": "http://github.com/ystskm",
     "email": "sakamoto@liberty-technology.biz"
   },
-  "contributors": [],
-  "description": "Simple Log Management System",
+  "contributors": [ ],
+  "description": "Simple Log Management System. Get file descriptor and auto-rotate the log-file.",
   "dependencies": {
     "supertimer": "*"
   },
