@@ -89,8 +89,11 @@ module.exports = nodeunit.testCase({
       // clear working directory
       cp.exec('rm -Rf ./' + logdir, er=>er ? rej(er): rsl());
 
+    })).then(pipe(function(rsl, rej) {
+      LogLife.get(logf).close();
+      rsl();
     })).then(function() {
-      
+
       console.log('DONE => LogLife stop');
       LogLife.stop();
       t.done();
@@ -102,7 +105,7 @@ module.exports = nodeunit.testCase({
       console.error(e);
       t.fail(e);
       
-    }).then(()=>process.exit());
+    });
 
   }
 });
