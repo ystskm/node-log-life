@@ -1,4 +1,8 @@
-/***/
+/**
+ * Index file for LogLife
+ * Usage: LogLife( logFile_0, logFile_1, [option] )
+ * プロセスの再起動なくログローテーションを行う 
+ */
 var NULL = null, TRUE = true, FALSE = false;
 (function() {
     
@@ -51,7 +55,6 @@ var NULL = null, TRUE = true, FALSE = false;
         outWarn('Duplicated loglife and renewal life: ' + fp);
         die(fp);
       }
-  
       // console.log('Set log-life file: ' + fp);
       Lifes[ fp ] = new Life(fp, opts);
       
