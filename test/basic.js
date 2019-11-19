@@ -3,7 +3,7 @@
  * 1s ごとにローテートファイルを作成する
  */
 var NULL = null, TRUE = true, FALSE = false, UNDEF = undefined;
-var nodeunit = require('nodeunit');
+var nodeunit = require('foonyah-ci');
 
 var fs = require('fs'), cp = require('child_process');
 var LogLife = require('../index');

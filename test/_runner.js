@@ -1,2 +1,2 @@
 /***/
-require('nodeunit-ci').run(['basic'], __dirname, 30000);
+require('foonyah-ci').run(['basic'], __dirname, 30000);
