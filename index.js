@@ -29,34 +29,58 @@ var NULL = null, TRUE = true, FALSE = false;
 
   /**
    * @static LogLife
-   * @param <String> logFile_0, logFile_1, ...
+   * @param <Array>.<String> [ logFile_0, logFile_1, ... ] | <String> logFile_0, logFile_1, ...
    * @param @optional <Object> options
    * @returns
    */
   function LogLife() {
   
     var args = Array.prototype.slice.call(arguments);
-    var opts = is( 'string', args.slice(-1)[0] ) ? { }: args.pop();
+    var opts;
+    if( isArray(args[0]) ) {
+      opts = args[1], args = args[0];
+    } else {
+      opts = is( 'string', args.slice(-1)[0] ) ? { }: args.pop();
+    }
+    opts = opts || { };
   
-    var files = [], pusher = function(fp) {
+    var files = [ ], pusher = function(ipt) {
+      var fp, fp_opts;
+      if( is('string', ipt) ) {
+
+        // console.log('ipt=string');
+        fp = ipt, fp_opts = clone(opts);
+        fp_opts.id = fp;
+
+      } else {
+
+        // console.log('ipt=object', ipt);
+        fp = ipt.id, fp_opts = clone(opts);
+        Object.keys(ipt).forEach(function(ipt_k) {
+          fp_opts[ipt_k] = ipt[ipt_k];
+        });
+        // console.log('=>', fp, fp_opts);
+
+      }
       if( !is('string', fp) ) {
-        console.warn('Unexpected path type: ' + fp);
+        console.warn('Unexpected path type: ' + fp, ipt);
         return;
       }
-      files.push(fp);
+      files.push([ fp, fp_opts ]);
     };
   
-    args.forEach(function(arg) {
-      isArray(arg) ? arg.forEach(pusher): pusher(arg);
+    args.forEach(function(a) {
+      isArray(a) ? a.forEach(pusher): pusher(a);
     });
-    files.forEach(function(fp) {
+    files.forEach(function(pair) {
   
+      var fp = pair[0], fp_opts = pair[1];
       if(Lifes[ fp ]) {
         outWarn('Duplicated loglife and renewal life: ' + fp);
         die(fp);
       }
       // console.log('Set log-life file: ' + fp);
-      Lifes[ fp ] = new Life(fp, opts);
+      Lifes[ fp ] = new Life(fp, fp_opts);
       
     });
   
@@ -79,12 +103,15 @@ var NULL = null, TRUE = true, FALSE = false;
    * 
    * @returns
    */
-  function stop() {
+  function stop(timerOnly) {
     if(!TickTimer) {
       return;
     }
     supr.clearInterval(TickTimer);
     TickTimer = NULL;
+    if(!timerOnly) {
+      Object.keys(Lifes).forEach(function(fp) { die(fp); });
+    }
   }
   
   /**
@@ -103,7 +130,7 @@ var NULL = null, TRUE = true, FALSE = false;
    */
   function die(fp) {
     var life = Lifes[ fp ];
-    // TODO Call any life method?
+    life.close();
     delete Lifes[ fp ];
     return life;
   }
@@ -130,13 +157,13 @@ var NULL = null, TRUE = true, FALSE = false;
     var procFile;
     var procTime = exec.procTime = new Date();
     var proc = Promise.resolve();
-    Object.keys( Lifes ).forEach(function(fp) {
+    Object.keys( Lifes ).forEach(function(fp, idx) {
       var rap = Date.now();
       proc = proc.then(function(){
         // outLog('Go check for: ' + fp, procTime, Date.now() - rap);
       }).then(function() {
         
-        return get( procFile = fp ).check( procTime );
+        return get( procFile = fp ).check( procTime, idx );
         
       }).then(function(){
         // outLog('Ok check for: ' + fp, procTime, Date.now() - rap);
@@ -167,6 +194,32 @@ var NULL = null, TRUE = true, FALSE = false;
   }
   
   // ----- //
+  function clone(x) {
+    if(x == NULL) {
+      return x;
+    }
+    if(!isArray(x) && !is('object', x)) {
+      switch(TRUE) {
+      case x instanceof Date:
+        return new Date(x);
+      default:
+        return x;
+      }
+    }
+    var new_x;
+    if(isArray(x)) {
+      new_x = [ ];
+      x.forEach(function(v) {
+        new_x.push(clone(v));
+      });
+    } else {
+      new_x = { };
+      Object.keys(x).forEach(function(k) {
+        new_x[k] = clone(x[k]);
+      });
+    }
+    return new_x;
+  }
   function is(ty, x) {
     return typeof x == ty;
   }

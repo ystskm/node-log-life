@@ -1,6 +1,7 @@
 {
   "name": "log-life",
-  "version": "1.3.0",
+  "version": "2.0.0",
+  "explain": "v2.0.0 supports cleanup directory as of specific condition and notification",
   "author": {
     "name": "Yoshitaka Sakamoto",
     "url": "http://github.com/ystskm",
@@ -9,7 +10,9 @@
   "contributors": [ ],
   "description": "Simple Log Management System. Get file descriptor and auto-rotate the log-file.",
   "dependencies": {
-    "supertimer": "*"
+    "supertimer": "*",
+    "diskusage": "1.1.3",
+    "mail": "git+https://github.com/foonyah/talent-smtpmailsender-mail.git"
   },
   "devDependencies": {
     "foonyah-ci": "*"
