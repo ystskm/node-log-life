@@ -1,7 +1,7 @@
 {
   "name": "log-life",
-  "version": "2.0.0",
-  "explain": "v2.0.0 supports cleanup directory as of specific condition and notification",
+  "version": "2.1.0",
+  "explain": "v2.1.0 supports cron rotate function: rotate(fp)",
   "author": {
     "name": "Yoshitaka Sakamoto",
     "url": "http://github.com/ystskm",

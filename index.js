@@ -3,19 +3,20 @@
  * Usage: LogLife( logFile_0, logFile_1, [option] )
  * プロセスの再起動なくログローテーションを行う 
  */
-var NULL = null, TRUE = true, FALSE = false;
 (function() {
     
-  var Life = require('./lib/Life');
-  var supr = require('supertimer');
-  var Lifes = {}, TickTimer;
+  const NULL = null, TRUE = true, FALSE = false, UNDEF = undefined;
+  const Life = require('./lib/Life');
+  const supr = require('supertimer');
+  let Lifes = { }, TickTimer;
   
-  var staticFncs = {
+  const staticFncs = {
     start: start,
     exec: exec,
     stop: stop,
     get: get,
-    die: die
+    die: die,
+    rotate: rotate
   };
   Object.keys( staticFncs ).forEach(function(k) {
     LogLife[ k ] = staticFncs[ k ];
@@ -178,6 +179,13 @@ var NULL = null, TRUE = true, FALSE = false;
     });
     return proc;
   
+  }
+  
+  /**
+   *
+   */
+  function rotate() {
+    return Life.rotate.apply(NULL, arguments);
   }
   
   // ----- //
