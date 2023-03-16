@@ -1,7 +1,7 @@
 {
   "name": "log-life",
-  "version": "2.1.2",
-  "explain": "v2.1.2 supports improvement mongodb log system which cannot change cursor position",
+  "version": "2.1.3",
+  "explain": "v2.1.3 supports improvement mongodb log system which cannot change cursor position + slight log fix",
   "author": {
     "name": "Yoshitaka Sakamoto",
     "url": "http://github.com/ystskm",
