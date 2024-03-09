@@ -98,6 +98,8 @@
     }
     // This is a check interval for LogLife.
     TickTimer = supr.setInterval(exec, intv || 10 * 1000);
+    // (2024.03.09 sakamoto) 最初の 10 秒が失われないよう、すぐに同期を開始する。
+    exec();
   }
   
   /**
@@ -142,38 +144,38 @@
    */
   function exec() {
   
-    var n = exec.procTime;
+    const n = exec.procTime;
     if(n) {
       if(Date.now() - n.getTime() > 600 * 1000) {
         
-        outLog('LogLife is stopped for too-long process. ( start at: ' + n + ' )');
+        outLog(`LogLife is stopped for too-long process. ( start at: ${n} )`);
         delete exec.procTime, stop();
         return;
         
       }
-      outLog('On processing ( start at: ' + n + ' )');
+      outLog(`On processing ( start at: ${n} )`);
       return;
     }
-  
-    var procFile;
-    var procTime = exec.procTime = new Date();
-    var proc = Promise.resolve();
-    Object.keys( Lifes ).forEach(function(fp, idx) {
-      var rap = Date.now();
-      proc = proc.then(function(){
+
+    let procFile;
+    let procTime = exec.procTime = new Date();
+    let proc = Promise.resolve();
+    Object.keys( Lifes ).forEach((fp, idx)=>{
+      let rap = Date.now();
+      proc = proc.then(()=>{
         // outLog('Go check for: ' + fp, procTime, Date.now() - rap);
-      }).then(function() {
+      }).then(()=>{
         
-        return get( procFile = fp ).check( procTime, idx );
+        return get( procFile = fp ).check( procTime, idx, { force } );
         
-      }).then(function(){
+      }).then(()=>{
         // outLog('Ok check for: ' + fp, procTime, Date.now() - rap);
       });
     });
   
-    proc = proc.then(function() {
+    proc = proc.then(()=>{
       delete exec.procTime;
-    })['catch'](function(e) {
+    })['catch'](e=>{
       outLog('Process end up with Error:', procFile, e);
       delete exec.procTime;
     });

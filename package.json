@@ -1,11 +1,11 @@
 {
   "name": "log-life",
-  "version": "2.1.3",
-  "explain": "v2.1.3 supports improvement mongodb log system which cannot change cursor position + slight log fix",
+  "version": "2.1.4",
+  "explain": "v2.1.4 removes truncated buffer from read buffer",
   "author": {
     "name": "Yoshitaka Sakamoto",
-    "url": "http://github.com/ystskm",
-    "email": "sakamoto@liberty-technology.biz"
+    "url": "https://github.com/ystskm",
+    "email": "support@startup-cloud.co.jp"
   },
   "contributors": [ ],
   "description": "Simple Log Management System. Get file descriptor and auto-rotate the log-file.",
