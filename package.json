@@ -1,7 +1,7 @@
 {
   "name": "log-life",
-  "version": "2.1.4",
-  "explain": "v2.1.4 removes truncated buffer from read buffer",
+  "version": "2.1.5",
+  "explain": "v2.1.5 shift the cursor to the edge of empty buffer",
   "author": {
     "name": "Yoshitaka Sakamoto",
     "url": "https://github.com/ystskm",
