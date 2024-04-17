@@ -1,7 +1,7 @@
 {
   "name": "log-life",
-  "version": "2.1.5",
-  "explain": "v2.1.5 shift the cursor to the edge of empty buffer",
+  "version": "2.1.6",
+  "explain": "v2.1.5 shift the cursor to the edge of empty buffer, v2.1.6 fix slight bug",
   "author": {
     "name": "Yoshitaka Sakamoto",
     "url": "https://github.com/ystskm",

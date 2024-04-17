@@ -142,8 +142,9 @@
    * 
    * @returns
    */
-  function exec() {
+  function exec(options) {
   
+    const opts = Object.assign({ force: FALSE }, options);
     const n = exec.procTime;
     if(n) {
       if(Date.now() - n.getTime() > 600 * 1000) {
@@ -166,7 +167,7 @@
         // outLog('Go check for: ' + fp, procTime, Date.now() - rap);
       }).then(()=>{
         
-        return get( procFile = fp ).check( procTime, idx, { force } );
+        return get( procFile = fp ).check( procTime, idx, { force: opts.force } );
         
       }).then(()=>{
         // outLog('Ok check for: ' + fp, procTime, Date.now() - rap);
